@@ -11,10 +11,10 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
             <Modal.Body className="bg-light p-0 m-0 d-flex flex-column">
                 <canvas
                     id="canvas"
-                    className="w-100 d-block mb-2"
+                    className="w-100 d-block mb-1"
                     style={{ maxHeight: '55vh', objectFit: 'contain' }}
                 />
-                <div className="d-flex justify-content-between m-2 mb-4">
+                <div className="d-flex justify-content-between m-2 mb-2">
                     <Button variant="secondary" size="sm" id="startButton">
                         Start / Restart
                     </Button>
