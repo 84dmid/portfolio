@@ -82,6 +82,8 @@ class Grid {
                         this.exitPoint = this.leftPortal;
                         this.rightPortal = cell;
                         break;
+                    default:
+                        break;
                 }
 
                 result[rowInd][colInd] = cell;

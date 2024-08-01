@@ -68,7 +68,7 @@ class Game {
 
             if (
                 pacManCell === ghostCell &&
-                ghost.state != Game.GHOST_STATE.IS_GOING_TO_RESPAWN
+                ghost.state !== Game.GHOST_STATE.IS_GOING_TO_RESPAWN
             ) {
                 if (ghost.state === Game.GHOST_STATE.IS_FRIGHTENED) {
                     ghost.goToRespawn();

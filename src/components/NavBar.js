@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 const NavBar = () => {
@@ -7,7 +7,9 @@ const NavBar = () => {
         <Navbar variant="dark" bg="dark" className="mb-3 p-2">
             <Container>
                 <div className="w-100 d-flex flex-column flex-sm-row">
-                    <Navbar.Brand href="/">Дмитрий Ерёмин</Navbar.Brand>
+                    <NavLink to="/" className="navbar-brand">
+                        Дмитрий Ерёмин
+                    </NavLink>
                     <Nav className="w-100 d-flex flex-column flex-sm-row justify-content-end">
                         <Link to="/" className="nav-link">
                             Игры

@@ -33,6 +33,8 @@ class PacMan extends MovingCharacter {
             case GameController.DIRECTION.UP:
                 this.newDirection.y = -1;
                 break;
+            default:
+                break;
         }
         if (this.isDirectionsOpposite(this.newDirection)) {
             this.updateDirection();

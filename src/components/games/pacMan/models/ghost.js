@@ -90,6 +90,8 @@ class Ghost extends MovingCharacter {
                         this.game.grid.map.length * this.game.grid.cellSize -
                         this.game.grid.cellSize / 2,
                 };
+            default:
+                break;
         }
     }
 
@@ -98,7 +100,7 @@ class Ghost extends MovingCharacter {
         const targetFinder = {
             [Game.GHOST_TYPE.RED]: function () {
                 return { x: pacMan.x, y: pacMan.y };
-            }.bind(this),
+            },
 
             [Game.GHOST_TYPE.PINK]: function () {
                 const cellSize = this.game.grid.cellSize;
@@ -197,6 +199,8 @@ class Ghost extends MovingCharacter {
                 return this.targetForGoingToRespawn;
             case Game.GHOST_STATE.IS_GOING_OUT:
                 return this.targetForGoingOut;
+            default:
+                break;
         }
     }
 
