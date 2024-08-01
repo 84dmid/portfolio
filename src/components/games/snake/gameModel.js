@@ -3,8 +3,8 @@ import GameController from './gameController.js';
 class GameModel {
     constructor() {
         this.grid = {
-            width: 28,
-            height: 36,
+            width: 20,
+            height: 15,
         };
         this.box = {};
         this.snake = {
