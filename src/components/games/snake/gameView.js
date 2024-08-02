@@ -8,11 +8,12 @@ class GameView {
         this.canvas.width = game.grid.width * this.boxSize;
         this.canvas.height = game.grid.height * this.boxSize;
         this.canvas.style.backgroundColor = 'rgb(255, 237, 185)';
-
         this.ctx = this.canvas.getContext('2d');
+
         this.previousTime = 0;
         this.gameLoop = this.gameLoop.bind(this);
         this.frameRequestId = null;
+
         this.startGameLoop();
     }
 

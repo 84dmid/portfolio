@@ -61,7 +61,10 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
                         ref={canvasRef}
                     />
                 </div>
-                <div className="d-flex justify-content-between m-2 mb-4">
+                <div
+                    className="d-flex justify-content-between"
+                    style={{ padding: '0 1em', marginBottom: '1em' }}
+                >
                     <Button variant="secondary" size="sm" id="startButton">
                         Start / Restart
                     </Button>
@@ -82,7 +85,7 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
                 </div>
                 <div
                     id="place"
-                    className="flex-grow-1 d-flex flex-column justify-content-center pb-2"
+                    className="flex-grow-1 d-flex flex-column justify-content-center pb-3"
                 >
                     <div id="buttonBlock" style={{ padding: '0 1em' }}>
                         <Row>

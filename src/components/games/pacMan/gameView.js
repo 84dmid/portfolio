@@ -18,6 +18,39 @@ class GameView {
         this.gameSpeed = Game.SPEED.NORMAL;
     }
 
+    startGameLoop() {
+        this.frameRequestId = requestAnimationFrame(this.gameLoop);
+    }
+
+    stopGameLoop() {
+        if (this.frameRequestId) {
+            cancelAnimationFrame(this.frameRequestId);
+            this.frameRequestId = null;
+        }
+    }
+
+    gameLoop(timestamp) {
+        if (this.previousTime === 0) {
+            this.previousTime = timestamp;
+        }
+        const elapsedTime = timestamp - this.previousTime;
+
+        if (elapsedTime > this.game.snake.stepTime) {
+            this.previousTime = timestamp;
+            this.game.update();
+            this.draw();
+        }
+
+        if (this.game.state === Game.STATE.IS_OVER) {
+            this.drawGameOver(this.game);
+            this.stopGameLoop();
+        } else if (this.game.state === Game.STATE.IS_STOPPED) {
+            this.draw();
+        } else {
+            this.frameRequestId = requestAnimationFrame(this.gameLoop);
+        }
+    }
+
     _drawPoint(x, y, size, color) {
         this.ctx.beginPath();
         this.ctx.fillStyle = color;
