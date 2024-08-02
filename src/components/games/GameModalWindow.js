@@ -11,12 +11,8 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
         initGame();
     }, [initGame]);
     useEffect(() => {
-        if (modalRef.current && canvasRef.current) {
-            setTimeout(() => {
-                console.log(modalRef.current.clientHeight);
-                console.dir(modalRef.current.scrollHeight);
-                console.dir(modalRef.current);
-                console.dir(canvasRef.current.clientHeight);
+        const handleResize = () => {
+            if (modalRef.current && canvasRef.current) {
                 const delta =
                     modalRef.current.scrollHeight - modalRef.current.clientHeight;
                 if (delta > 0) {
@@ -28,8 +24,36 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
                         width: canvasRef.current.clientWidth * coefficient,
                     });
                 }
-            }, 100);
-        }
+            }
+        };
+
+        const observer = new ResizeObserver(handleResize);
+        if (modalRef.current) observer.observe(modalRef.current);
+        if (canvasRef.current) observer.observe(canvasRef.current);
+
+        return () => {
+            observer.disconnect();
+        };
+
+        // if (modalRef.current && canvasRef.current) {
+        //     setTimeout(() => {
+        //         console.log(modalRef.current.clientHeight);
+        //         console.dir(modalRef.current.scrollHeight);
+        //         console.dir(modalRef.current);
+        //         console.dir(canvasRef.current.clientHeight);
+        //         const delta =
+        //             modalRef.current.scrollHeight - modalRef.current.clientHeight;
+        //         if (delta > 0) {
+        //             const coefficient =
+        //                 (canvasRef.current.clientHeight - delta) /
+        //                 canvasRef.current.clientHeight;
+        //             setCanvasSize({
+        //                 height: canvasRef.current.clientHeight - delta,
+        //                 width: canvasRef.current.clientWidth * coefficient,
+        //             });
+        //         }
+        //     }, 100);
+        // }
     }, [show]);
     return (
         <Modal
