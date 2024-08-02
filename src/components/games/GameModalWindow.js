@@ -40,7 +40,7 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
     return (
         <Modal
             centered
-            fullscreen="lg-down"
+            fullscreen="md-down"
             size="md"
             show={show}
             onHide={() => setShow(false)}
