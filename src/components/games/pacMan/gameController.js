@@ -23,16 +23,16 @@ class GameController {
         this.stopButton.addEventListener('click', () => {
             this.game.setPause();
         });
-        this.rightButton.addEventListener('click', () =>
+        this.rightButton.addEventListener('pointerdown', () =>
             this.game.pacMan.setNewDirection(GameController.DIRECTION.RIGHT)
         );
-        this.leftButton.addEventListener('click', () =>
+        this.leftButton.addEventListener('pointerdown', () =>
             this.game.pacMan.setNewDirection(GameController.DIRECTION.LEFT)
         );
-        this.upButton.addEventListener('click', () =>
+        this.upButton.addEventListener('pointerdown', () =>
             this.game.pacMan.setNewDirection(GameController.DIRECTION.UP)
         );
-        this.downButton.addEventListener('click', () =>
+        this.downButton.addEventListener('pointerdown', () =>
             this.game.pacMan.setNewDirection(GameController.DIRECTION.DOWN)
         );
 

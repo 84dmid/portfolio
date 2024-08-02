@@ -15,16 +15,16 @@ class GameController {
         this.continueButton.addEventListener('click', () => this.continue());
 
         document.addEventListener('keydown', (e) => this.keyDownHandler(e));
-        this.rightButton.addEventListener('mousedown', () =>
+        this.rightButton.addEventListener('pointerdown', () =>
             this.game.setNewDirection(GameController.DIRECTION.RIGHT)
         );
-        this.leftButton.addEventListener('mousedown', () =>
+        this.leftButton.addEventListener('pointerdown', () =>
             this.game.setNewDirection(GameController.DIRECTION.LEFT)
         );
-        this.upButton.addEventListener('mousedown', () =>
+        this.upButton.addEventListener('pointerdown', () =>
             this.game.setNewDirection(GameController.DIRECTION.UP)
         );
-        this.downButton.addEventListener('mousedown', () =>
+        this.downButton.addEventListener('pointerdown', () =>
             this.game.setNewDirection(GameController.DIRECTION.DOWN)
         );
     }
