@@ -2,6 +2,7 @@ class GameController {
     constructor(game, view) {
         this.game = game;
         this.view = view;
+
         this.startButton = document.getElementById('startButton');
         this.pauseButton = document.getElementById('pauseButton');
         this.continueButton = document.getElementById('continueButton');
@@ -10,39 +11,53 @@ class GameController {
         this.upButton = document.getElementById('upButton');
         this.downButton = document.getElementById('downButton');
 
-        this.startButton.addEventListener('click', () => this.startAndRestart());
-        this.pauseButton.addEventListener('click', () => this.setPause());
-        this.continueButton.addEventListener('click', () => this.continue());
+        this.startAndRestartHandler = this.startAndRestartHandler.bind(this);
+        this.pauseHandler = this.pauseHandler.bind(this);
+        this.continueHandler = this.continueHandler.bind(this);
+        this.rightButtonHandler = this.rightButtonHandler.bind(this);
+        this.leftButtonHandler = this.leftButtonHandler.bind(this);
+        this.upButtonHandler = this.upButtonHandler.bind(this);
+        this.downButtonHandler = this.downButtonHandler.bind(this);
+        this.keyDownHandler = this.keyDownHandler.bind(this);
+        this.exitGameHandler = this.exitGameHandler.bind(this);
 
-        document.addEventListener('keydown', (e) => this.keyDownHandler(e));
-        this.rightButton.addEventListener('pointerdown', () =>
-            this.game.setNewDirection(GameController.DIRECTION.RIGHT)
-        );
-        this.leftButton.addEventListener('pointerdown', () =>
-            this.game.setNewDirection(GameController.DIRECTION.LEFT)
-        );
-        this.upButton.addEventListener('pointerdown', () =>
-            this.game.setNewDirection(GameController.DIRECTION.UP)
-        );
-        this.downButton.addEventListener('pointerdown', () =>
-            this.game.setNewDirection(GameController.DIRECTION.DOWN)
-        );
+        this.startButton.addEventListener('click', this.startAndRestartHandler);
+        this.pauseButton.addEventListener('click', this.pauseHandler);
+        this.continueButton.addEventListener('click', this.continueHandler);
+        this.rightButton.addEventListener('pointerdown', this.rightButtonHandler);
+        this.leftButton.addEventListener('pointerdown', this.leftButtonHandler);
+        this.upButton.addEventListener('pointerdown', this.upButtonHandler);
+        this.downButton.addEventListener('pointerdown', this.downButtonHandler);
+        document.addEventListener('keydown', this.keyDownHandler);
     }
 
-    setPause() {
+    pauseHandler() {
         this.game.setPause();
         this.view.stopGameLoop();
     }
 
-    continue() {
+    continueHandler() {
         this.game.continue();
         this.view.startGameLoop();
     }
 
-    startAndRestart() {
+    startAndRestartHandler() {
         this.view.stopGameLoop();
         this.game.startAndRestart();
         this.view.startGameLoop();
+    }
+
+    rightButtonHandler() {
+        this.game.setNewDirection(GameController.DIRECTION.RIGHT);
+    }
+    leftButtonHandler() {
+        this.game.setNewDirection(GameController.DIRECTION.LEFT);
+    }
+    upButtonHandler() {
+        this.game.setNewDirection(GameController.DIRECTION.UP);
+    }
+    downButtonHandler() {
+        this.game.setNewDirection(GameController.DIRECTION.DOWN);
     }
 
     keyDownHandler(e) {
@@ -67,6 +82,20 @@ class GameController {
             default:
                 break;
         }
+    }
+
+    exitGameHandler() {
+        this.game.setPause();
+        this.view.stopGameLoop();
+
+        document.removeEventListener('keydown', this.keyDownHandler);
+        this.startButton.removeEventListener('click', this.startAndRestartHandler);
+        this.pauseButton.removeEventListener('click', this.pauseHandler);
+        this.continueButton.removeEventListener('click', this.continueHandler);
+        this.rightButton.removeEventListener('pointerdown', this.rightButtonHandler);
+        this.leftButton.removeEventListener('pointerdown', this.leftButtonHandler);
+        this.upButton.removeEventListener('pointerdown', this.upButtonHandler);
+        this.downButton.removeEventListener('pointerdown', this.downButtonHandler);
     }
 }
 

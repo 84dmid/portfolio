@@ -4,10 +4,9 @@ import gameScreen from './gameScreen.jpg';
 import GameCard from '../GameCard.js';
 
 const PacManCard = () => {
-    const initGame = () => {
-        import('./main.js').then((module) => {
-            module.initGame();
-        });
+    const initGame = async () => {
+        const module = await import('./main.js');
+        return module.initGame();
     };
 
     return <GameCard title="PacMan" gameScreen={gameScreen} initGame={initGame} />;

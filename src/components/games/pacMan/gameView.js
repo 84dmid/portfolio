@@ -13,41 +13,15 @@ class GameView {
 
         this.draw(game);
 
-        this.lastFrameTime = 0;
-        this.frameInterval = 10;
-        this.gameSpeed = Game.SPEED.NORMAL;
-    }
+        this.frameRequestId = null;
 
-    startGameLoop() {
-        this.frameRequestId = requestAnimationFrame(this.gameLoop);
+        this.gameSpeed = Game.SPEED.NORMAL;
     }
 
     stopGameLoop() {
         if (this.frameRequestId) {
             cancelAnimationFrame(this.frameRequestId);
             this.frameRequestId = null;
-        }
-    }
-
-    gameLoop(timestamp) {
-        if (this.previousTime === 0) {
-            this.previousTime = timestamp;
-        }
-        const elapsedTime = timestamp - this.previousTime;
-
-        if (elapsedTime > this.game.snake.stepTime) {
-            this.previousTime = timestamp;
-            this.game.update();
-            this.draw();
-        }
-
-        if (this.game.state === Game.STATE.IS_OVER) {
-            this.drawGameOver(this.game);
-            this.stopGameLoop();
-        } else if (this.game.state === Game.STATE.IS_STOPPED) {
-            this.draw();
-        } else {
-            this.frameRequestId = requestAnimationFrame(this.gameLoop);
         }
     }
 
@@ -67,30 +41,24 @@ class GameView {
     }
 
     draw(game) {
-        const currentTime = Date.now();
-        const deltaTime = currentTime - this.lastFrameTime;
-
-        if (deltaTime > this.frameInterval) {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            for (let i = this.gameSpeed; i > 0; i--) {
-                this.game.update();
-            }
-            this.drawField(this.game.field);
-            this.drawScore(this.game.score);
-            this.drawPacMan(this.game.pacMan);
-            this.drawLives(this.game.lives);
-
-            this.game.ghosts.forEach((ghost) => {
-                this.drawGhost(ghost);
-            });
-
-            if (this.game.state === Game.STATE.IS_OVER) {
-                this.drawGameOver(this.game);
-            }
-
-            this.lastFrameTime = currentTime;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        for (let i = this.gameSpeed; i > 0; i--) {
+            this.game.update();
         }
-        window.requestAnimationFrame(this.draw.bind(this, game));
+        this.drawField(this.game.field);
+        this.drawScore(this.game.score);
+        this.drawPacMan(this.game.pacMan);
+        this.drawLives(this.game.lives);
+
+        this.game.ghosts.forEach((ghost) => {
+            this.drawGhost(ghost);
+        });
+
+        if (this.game.state === Game.STATE.IS_OVER) {
+            this.drawGameOver(this.game);
+        }
+
+        this.frameRequestId = window.requestAnimationFrame(this.draw.bind(this, game));
     }
 
     drawField(field) {

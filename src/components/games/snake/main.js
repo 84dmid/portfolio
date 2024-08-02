@@ -3,7 +3,9 @@ import GameView from './gameView.js';
 import GameController from './gameController.js';
 
 export const initGame = () => {
-    const game = new GameModel();
-    const view = new GameView(game);
-    new GameController(game, view);
+    let game = new GameModel();
+    let view = new GameView(game);
+    let controller = new GameController(game, view);
+
+    return controller.exitGameHandler;
 };

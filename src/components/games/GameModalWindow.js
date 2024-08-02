@@ -3,12 +3,15 @@ import { Modal } from 'react-bootstrap';
 import { Col, Row, Button } from 'react-bootstrap';
 
 const GameModalWindow = ({ show, setShow, initGame }) => {
+    const exitGame = useRef(null);
     const modalRef = useRef(null);
     const canvasRef = useRef(null);
     const [canvasSize, setCanvasSize] = useState({ width: null, height: null });
 
     useEffect(() => {
-        initGame();
+        initGame().then((gameStopper) => {
+            exitGame.current = gameStopper;
+        });
     }, [initGame]);
 
     useEffect(() => {
@@ -37,14 +40,14 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
         };
     }, [show]);
 
+    const hideHandler = () => {
+        setShow(false);
+        exitGame.current();
+        exitGame.current = null;
+    };
+
     return (
-        <Modal
-            centered
-            fullscreen="md-down"
-            size="md"
-            show={show}
-            onHide={() => setShow(false)}
-        >
+        <Modal centered fullscreen="md-down" size="md" show={show} onHide={hideHandler}>
             <Modal.Body className="bg-light p-0 m-0 d-flex flex-column" ref={modalRef}>
                 <div className="d-flex justify-content-center">
                     <canvas
@@ -78,7 +81,7 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
                         id="exitButton"
                         variant="secondary"
                         size="sm"
-                        onClick={() => setShow(false)}
+                        onClick={hideHandler}
                     >
                         Exit
                     </Button>
