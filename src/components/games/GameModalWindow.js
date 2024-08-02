@@ -10,6 +10,7 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
     useEffect(() => {
         initGame();
     }, [initGame]);
+
     useEffect(() => {
         const handleResize = () => {
             if (modalRef.current && canvasRef.current) {
@@ -34,27 +35,8 @@ const GameModalWindow = ({ show, setShow, initGame }) => {
         return () => {
             observer.disconnect();
         };
-
-        // if (modalRef.current && canvasRef.current) {
-        //     setTimeout(() => {
-        //         console.log(modalRef.current.clientHeight);
-        //         console.dir(modalRef.current.scrollHeight);
-        //         console.dir(modalRef.current);
-        //         console.dir(canvasRef.current.clientHeight);
-        //         const delta =
-        //             modalRef.current.scrollHeight - modalRef.current.clientHeight;
-        //         if (delta > 0) {
-        //             const coefficient =
-        //                 (canvasRef.current.clientHeight - delta) /
-        //                 canvasRef.current.clientHeight;
-        //             setCanvasSize({
-        //                 height: canvasRef.current.clientHeight - delta,
-        //                 width: canvasRef.current.clientWidth * coefficient,
-        //             });
-        //         }
-        //     }, 100);
-        // }
     }, [show]);
+
     return (
         <Modal
             centered
